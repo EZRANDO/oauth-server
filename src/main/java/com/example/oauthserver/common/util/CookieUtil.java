@@ -66,6 +66,4 @@ public class CookieUtil {
             throw new RuntimeException("쿠키 직렬화 실패", e);
         }
     }
-
-
 }

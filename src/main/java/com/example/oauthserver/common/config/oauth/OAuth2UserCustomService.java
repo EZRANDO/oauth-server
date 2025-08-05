@@ -8,6 +8,7 @@ import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Map;
 
@@ -16,6 +17,7 @@ import java.util.Map;
 //이미 존재하면 이름or프로필 정보가 갱신 가능성이 있어 업뎃.
 @RequiredArgsConstructor
 @Service
+@Transactional
 public class OAuth2UserCustomService extends DefaultOAuth2UserService {
 
     private final UserRepository userRepository;

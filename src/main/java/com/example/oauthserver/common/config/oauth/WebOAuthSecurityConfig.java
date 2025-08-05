@@ -1,7 +1,7 @@
 package com.example.oauthserver.common.config.oauth;
 
-import com.example.oauthserver.common.config.TokenAuthenticationFilter;
 import com.example.oauthserver.common.config.jwt.TokenProvider;
+import com.example.oauthserver.common.repository.OAuth2AuthorizationRequestBasedOnCookieRepository;
 import com.example.oauthserver.common.repository.RefreshTokenRepository;
 import com.example.oauthserver.service.UserDetailService;
 import lombok.RequiredArgsConstructor;
@@ -25,7 +25,8 @@ public class WebOAuthSecurityConfig {
     private final RefreshTokenRepository refreshTokenRepository;
     private final UserDetailService userDetailService;
     private final OAuth2UserCustomService oAuth2UserCustomService;
-
+    private final OAuth2AuthorizationRequestBasedOnCookieRepository authorizationRequestRepository;
+    private final OAuth2SuccessHandler oAuth2SuccessHandler;
 
     //보안 필터체인을 아예 타지 않게 하는 설정 로그인 인증없이 가능함.
     @Bean
@@ -62,7 +63,7 @@ public class WebOAuthSecurityConfig {
                 //오어스 로그인 요청하면 쿠키에 요청정보 저장하고 소셜 로그인 정보 받아올 서비스 지정, 성공시엔 토믄 발금
                 .oauth2Login(oauth2 -> oauth2
                         .loginPage("/login")
-                        .authorizationEndpoint(authorization -> authorization
+                        .authorizationEndpoint(endpoint -> endpoint
                                 .authorizationRequestRepository(authorizationRequestRepository))
                         .userInfoEndpoint(userInfo -> userInfo
                                 .userService(oAuth2UserCustomService))
@@ -77,20 +78,24 @@ public class WebOAuthSecurityConfig {
                 .build();
     }
 
-    public OAuth2SuccessHandler oAuth2SuccessHandler() {
-        return new OAuth2SuccessHandler(tokenProvider, refreshTokenRepository,
-                oAutu2AuthorizationRequestBaseOnCookieRepository(),
-                userService);
-    }
+//    @Bean
+//    public OAuth2SuccessHandler oAuth2SuccessHandler(UserService userService) {
+//        return new OAuth2SuccessHandler(
+//                authorizationRequestRepository,
+//                tokenProvider,
+//                refreshTokenRepository,// 정확한 메서드 호출
+//                userService
+//        );
+//    }
+
+//    @Bean
+//    public OAuth2AuthorizationRequestBasedOnCookieRepository authorizationRequestRepository() {
+//        return new OAuth2AuthorizationRequestBasedOnCookieRepository();
+//    }
 
     @Bean
-    public TokenAuthenticationFilter tokenAuthenticationFilter() throws Exception {
+    public TokenAuthenticationFilter tokenAuthenticationFilter() {
         return new TokenAuthenticationFilter(tokenProvider);
-    }
-
-    @Bean
-    public OAuth2AuthorizationRequestBasedOnCookieRepsoitory oAuth2AuthorizationRequestBasedOnCoolieRepository() {
-        return new OAuth2AuthorizationRequestBasedOnCookieRepsoitory();
     }
 
     @Bean
