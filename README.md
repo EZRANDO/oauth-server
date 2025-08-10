@@ -18,6 +18,7 @@
 ---
 
 ## 프로젝트 구조
+```
 /project-root
 ├─ src/main/java/.../firebase
 │  ├─ FirebaseInitializer.java        # Admin SDK 초기화
@@ -26,3 +27,4 @@
 ├─ src/main/resources/firebase
 │  └─ firebase-adminsdk.json          # 서비스 계정 키(비공개, git ignore)
 └─ google.html                         # 테스트용 프론트(버튼 1개)
+```
