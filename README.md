@@ -18,11 +18,11 @@
 ---
 
 ## 프로젝트 구조
-project-root/
-├─ src/main/java/com/example/oauthserver/common/firebase
-│ ├─ FirebaseInitializer.java
-│ ├─ FirebaseAuthService.java
-│ └─ FirebaseAuthController.java
+/project-root
+├─ src/main/java/.../firebase
+│  ├─ FirebaseInitializer.java        # Admin SDK 초기화
+│  ├─ FirebaseAuthService.java        # ID 토큰 검증 서비스
+│  └─ FirebaseAuthController.java     # /api/auth/firebase-login 엔드포인트
 ├─ src/main/resources/firebase
-│ ├─ firebase-adminsdk.json
-│ └─ google.html
+│  ├─ firebase-adminsdk.json          # 서비스 계정 키(비공개, git ignore)
+└─ └─ google.html    
