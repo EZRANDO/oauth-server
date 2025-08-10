@@ -11,7 +11,7 @@
 - **`FirebaseAuthController.java`**  
   - `/api/auth/firebase-login` POST 엔드포인트
 - **`firebase-adminsdk.json`**  
-  - Firebase 서비스 계정 비공개 키 (**백엔드에서만 사용, Git에 업로드 금지**)
+  - Firebase 서비스 계정 비공개 키 (**Gitingnore**)
 - **`google.html`**  
   - 테스트용 프론트엔드 페이지 (Google 로그인 버튼)
 
