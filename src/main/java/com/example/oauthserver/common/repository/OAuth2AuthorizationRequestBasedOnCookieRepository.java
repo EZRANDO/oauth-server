@@ -9,7 +9,6 @@ import org.springframework.security.oauth2.core.endpoint.OAuth2AuthorizationRequ
 import org.springframework.stereotype.Component;
 import org.springframework.web.util.WebUtils;
 
-
 @Component
 public class OAuth2AuthorizationRequestBasedOnCookieRepository implements AuthorizationRequestRepository<OAuth2AuthorizationRequest> {
 
@@ -35,13 +34,16 @@ public class OAuth2AuthorizationRequestBasedOnCookieRepository implements Author
 
     //null이 아니면 객체 직렬화후 쿠키 저장
     @Override
-    public void saveAuthorizationRequest(OAuth2AuthorizationRequest authorizationRequest, HttpServletRequest request, HttpServletResponse response) {
-
-        if(authorizationRequest == null) {
+    public void saveAuthorizationRequest(OAuth2AuthorizationRequest authorizationRequest,
+                                         HttpServletRequest request,
+                                         HttpServletResponse response) {
+        if (authorizationRequest == null) {
             removeAuthorizationRequestCookies(request, response);
             return;
         }
-        CookieUtil.addCookie(response, OAUTH2_AUTHORIZATION_REQUEST_COOKIE_NAME, CookieUtil.serializeJson(authorizationRequest), COOKIE_EXPIRE_SECONDS);
+        boolean https = CookieUtil.isHttps(request);
+        String payload = CookieUtil.serializeJson(authorizationRequest); // 공주님 기존 직렬화 사용 시
+        CookieUtil.addCookie(response, OAUTH2_AUTHORIZATION_REQUEST_COOKIE_NAME, payload, COOKIE_EXPIRE_SECONDS, https);
     }
 
     //saveAuthorizationRequest에서만 호출하기 때문에 private로 선언.

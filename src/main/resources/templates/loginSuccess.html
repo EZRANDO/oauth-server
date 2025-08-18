@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>로그인 성공</title>
+    <!-- Bootstrap 4 -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+</head>
+<body>
+<!-- 오타 수정: </> 제거 -->
+<div class="p-5 mb-5 text-center bg-light">
+    <h1 class="mb-3">My Blog</h1>
+    <h4 class="mb-3">블로그에 오신 것을 환영합니다.</h4>
+</div>
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-lg-8">
+
+            <!-- article 이 있을 때 -->
+            <div th:if="${article != null}">
+                <article>
+                    <input type="hidden" id="article-id" th:value="${article.id}">
+                    <header class="mb-4">
+                        <!-- Bootstrap 4 클래스로 교체: fw-bolder → font-weight-bold, fst-italic → font-italic -->
+                        <h1 class="font-weight-bold mb-1" th:text="${article.title}">제목</h1>
+                        <div class="text-muted font-italic mb-2"
+                             th:text="|Posted on ${#temporals.format(article.createdAt, 'yyyy-MM-dd HH:mm')} By ${article.author}|">
+                            Posted on 2025-01-01 00:00 By author
+                        </div>
+                    </header>
+                    <section class="mb-5">
+                        <p class="mb-4" th:text="${article.content}">내용</p>
+                    </section>
+
+                    <button type="button" id="modify-btn"
+                            th:onclick="|location.href='@{/new-article(id=${article.id})}'|"
+                            class="btn btn-primary btn-sm">수정</button>
+                    <button type="button" id="delete-btn" class="btn btn-secondary btn-sm">삭제</button>
+                </article>
+            </div>
+
+            <!-- article 이 없을 때 (로그인 성공만 안내) -->
+            <div th:unless="${article != null}">
+                <div class="alert alert-success mb-4">
+                    로그인에 성공했습니다.
+                </div>
+                <a class="btn btn-primary" href="/articles">게시글 목록으로 이동</a>
+                <!-- 필요하다면 홈으로 이동 버튼도 추가 -->
+                <a class="btn btn-outline-secondary ml-2" href="/">홈으로</a>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script src="/js/article.js"></script>
+</body>
+</html>
