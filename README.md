@@ -1,12 +1,13 @@
 # JWT 기반 인증/인가 서버
 
-Spring Boot 기반의 **JWT 인증/인가 서버**로, Access Token과 Refresh Token을 활용하여 사용자 인증을 처리합니다.  
+**JWT 인증/인가 서버**로 Access Token과 Refresh Token을 활용하여 사용자 인증을 처리합니다.  
 Refresh Token은 DB에 저장하고, 쿠키(HttpOnly, Secure 옵션)에 심어 브라우저에서 안전하게 유지할 수 있도록 구성되어 있습니다.  
-OAuth2 소셜 로그인(Kakao)과 연동하여 로그인 성공 시 토큰을 발급하고, 보호된 API 접근 시 JWT를 통한 인증 절차를 거칩니다.
+OAuth2 kakao와 연동하여 로그인 성공 시 토큰을 발급하고, 보호된 API 접근 시 JWT를 통한 인증 절차를 거칩니다.
 
 ---
 
 ## 📂 프로젝트 구조
+```
 com.example.auth
 ├─ common
 │ ├─ jwt
@@ -33,7 +34,7 @@ com.example.auth
 │ └─ UserService.java # 사용자 비즈니스 로직
 └─ web
 └─ AuthController.java # 인증 관련 API 컨트롤러
-
+```
 ---
 ## 📌 인증 플로우
 1. 사용자가 OAuth2 소셜 로그인 요청
