@@ -1,4 +1,4 @@
-# Firebase Google Login with Spring Boot (Custom Auth)
+# Firebase Google Login with Spring Boot 
 **Firebase Google 로그인**을 사용하여 발급받은 **ID 토큰**을 Spring Boot 서버에서 검증하는 예제입니다.
 
 ---
